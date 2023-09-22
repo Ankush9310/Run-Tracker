@@ -3,10 +3,12 @@ package com.ac10.runtracker.ui.viewmodels
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ac10.runtracker.db.Run
 import com.ac10.runtracker.others.SortType
 import com.ac10.runtracker.repositories.MainRepository
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(
     private val mainRepository: MainRepository
@@ -41,29 +43,41 @@ class MainViewModel @ViewModelInject constructor(
             }
         }
 
+        runs.addSource(runsSortedByDate) { result ->
+            if (sortType == SortType.DATE) {
+                result?.let { runs.value = it }
+            }
+        }
 
-
-
-
-
-
-
-
-
-
+        runs.addSource(runsSortedByCaloriesBurned) { result ->
+            if (sortType == SortType.CALORIES_BURNED) {
+                result?.let { runs.value = it }
+            }
+        }
+        runs.addSource(runsSortedByTimeInMillis) { result ->
+            if (sortType == SortType.RUNNING_TIME) {
+                result?.let { runs.value = it }
+            }
+        }
 
 
     }
 
 
+    fun sortRuns(sortType: SortType) = when (sortType) {
+        SortType.DISTANCE -> runsSortedByDistance.value?.let { runs.value = it }
+        SortType.DATE -> runsSortedByDate.value?.let { runs.value = it }
+        SortType.AVG_SPEED -> runsSortedByAvgSpeed.value?.let { runs.value = it }
+        SortType.CALORIES_BURNED -> runsSortedByCaloriesBurned.value?.let { runs.value = it }
+        SortType.RUNNING_TIME -> runsSortedByTimeInMillis.value?.let { runs.value = it }
+    }.also {
+        this.sortType = sortType
+    }
 
 
-
-
-
-
-
-
+    fun insertRun(run: Run) = viewModelScope.launch {
+        mainRepository.insertRun(run)
+    }
 
 
 }

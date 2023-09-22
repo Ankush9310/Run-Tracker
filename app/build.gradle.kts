@@ -2,8 +2,10 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 
+    kotlin("android.extensions")
+//    id("kotlin-android-extensions")
     id("kotlin-kapt")
-//    id("androidx.navigation.safeargs.kotlin")
+    id("androidx.navigation.safeargs")
     id("com.google.dagger.hilt.android")
 }
 
@@ -58,10 +60,10 @@ dependencies {
 
 
     // Material Design
-    implementation ("com.google.android.material:material:1.11.0-alpha02")
+    implementation ("com.google.android.material:material:1.11.0-alpha03")
 
     // Architectural Components
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
     // Room
     implementation ("androidx.room:room-runtime:2.5.2")
@@ -75,16 +77,16 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     // Coroutine Lifecycle Scopes
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
 
     // Navigation Components
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.1")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.1")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.3")
 
     // Glide
-    implementation ("com.github.bumptech.glide:glide:4.13.1")
-    kapt ("com.github.bumptech.glide:compiler:4.13.1")
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+    kapt ("com.github.bumptech.glide:compiler:4.14.2")
 
     // Google Maps Location Services
     implementation ("com.google.android.gms:play-services-location:21.0.1")
